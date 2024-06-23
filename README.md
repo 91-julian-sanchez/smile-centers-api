@@ -12,6 +12,7 @@ Este proyecto es una API que permite obtener centros Smile Centers, filtrados po
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/91-julian-sanchez/smile-centers-api.git
+   cd smile-centers-api
    ```
 
 2. Instala las dependencias:
@@ -54,6 +55,8 @@ npm start
 3. La API estará disponible en http://localhost:3000.
 
 ## Uso
+**Nota:** http://localhost:3000 se utiliza solo para el ambiente local. En ambientes desplegados, esta URL debe ser reemplazada por la URL del dominio correspondiente.
+
 ### Endpoints
 Obtener Smile Centers
 URL: /smile-center
@@ -115,6 +118,14 @@ Respuesta:
     }
 ]
 ```
+## Documentación
+
+La documentación de la API está disponible en Swagger. Para acceder a Swagger UI, sigue los siguientes pasos:
+
+1. Asegúrate de que la aplicación esté corriendo localmente.
+2. Abre tu navegador web y navega a `http://localhost:3000/docs`.
+
+Swagger UI te permitirá explorar y probar los endpoints de la API de forma interactiva.
 
 ## Scripts Disponibles
 * `npm run build`: Compila el proyecto.
