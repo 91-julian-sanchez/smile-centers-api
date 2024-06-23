@@ -1,20 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { SmileCenters } from './smile-center.schema';
+import { SmileCentersRepository } from './smile-centers.repository';
 
 @Injectable()
 export class SmileCenterService {
-  constructor(
-    @InjectModel(SmileCenters.name) private readonly smileCenterModel: Model<SmileCenters>,
-  ) {}
+  constructor(private readonly smileCentersRepository: SmileCentersRepository) {}
 
   async getCenters(centerType?: string, zone?: string, service?: string): Promise<any> {
-    const query: any = {};
-    if (centerType) query.Center_Type = centerType;
-    if (zone) query.Zone = zone;
-    if (service) query[`Services.${service}`] = { $exists: true };
-    const centers = await this.smileCenterModel.find(query).exec();
+    const filters: any = {};
+    if (centerType) filters.Center_Type = centerType;
+    if (zone) filters.Zone = zone;
+    if (service) filters[`Services.${service}`] = { $exists: true };
+    const centers = await this.smileCentersRepository.findByFilters(filters)
     return centers.map(center => ({
       name: center.Center_Name,
       address: center.Street,
