@@ -1,14 +1,78 @@
 {
-  "unknown": {
+  "C:\\develop\\moons-technical-test\\smile-centers": {
     "versionSfCore": null,
     "versionFramework": "4.1.5",
     "isWithinCompose": false,
+    "isCompose": false,
     "composeOrgName": null,
+    "composeResolverProviders": {},
     "composeServiceName": null,
-    "command": [],
-    "options": {},
-    "error": null,
+    "servicePath": "C:\\develop\\moons-technical-test\\smile-centers",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "91juliansanchez",
+      "service": "smile-centers",
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs20.x",
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true,
+        "environment": {
+          "IS_LOCAL": "true"
+        }
+      },
+      "functions": {
+        "hello": {
+          "handler": "handler.hello",
+          "events": [
+            {
+              "httpApi": {
+                "path": "/",
+                "method": "get"
+              }
+            }
+          ],
+          "name": "smile-centers-dev-hello"
+        }
+      }
+    },
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: 91juliansanchez\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: smile-centers\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n\nfunctions:\n  hello:\n    handler: handler.hello\n    events:\n      - httpApi:\n          path: /\n          method: get\n",
+    "command": [
+      "invoke",
+      "local"
+    ],
+    "options": {
+      "function": "hello"
+    },
+    "error": {
+      "message": "Exception encountered when loading C:\\develop\\moons-technical-test\\smile-centers\\handler",
+      "stack": "ServerlessError2: Exception encountered when loading C:\\develop\\moons-technical-test\\smile-centers\\handler\n    at AwsInvokeLocal.invokeLocalNodeJs (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1025:9347)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PluginManager.runHooks (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1028:9294)\n    at async PluginManager.invoke (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1028:10064)\n    at async PluginManager.run (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1028:10788)\n    at async Serverless.run (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1035:10442)\n    at async runFramework (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1079:2314)\n    at async route (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1088:14692)\n    at async Object.run2 [as run] (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1088:15090)\n    at async run3 (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1088:16324)",
+      "code": "INVOKE_LOCAL_LAMBDA_INITIALIZATION_FAILED"
+    },
+    "params": {},
     "machineId": "cfe80ee6b23fb2b65e6fd229e0ab4431",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "b6092b5e-c8f5-4b0a-ac77-2562ea992c84",
+    "orgName": "91juliansanchez",
+    "userId": "5klwptnbP2DV8jGGK7",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "91juliansanchez",
+    "subscription": null,
+    "userEmail": "91.julian.sanchez@gmail.com",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "921054675584",
+    "versionSf": "4.1.5",
+    "serviceProviderAwsCfStackName": "smile-centers-dev",
     "serviceProviderAwsCfStackId": null,
     "serviceProviderAwsCfStackCreated": null,
     "serviceProviderAwsCfStackUpdated": null,
