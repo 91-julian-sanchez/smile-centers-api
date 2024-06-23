@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 
 @Schema({ collection: 'SmileCenters' })
-export class SmileCenters extends Document {
+export class SmileCenter extends Document {
   @Prop()
   Center_Name!: string;
 
@@ -26,4 +26,4 @@ export class SmileCenters extends Document {
   Services!: Record<string, any>;
 }
 
-export const SmileCenterSchema = SchemaFactory.createForClass(SmileCenters);
+export const SmileCenterSchema = SchemaFactory.createForClass(SmileCenter);

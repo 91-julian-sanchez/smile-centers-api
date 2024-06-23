@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { SmileCentersRepository } from './smile-centers.repository';
-import { GetSmileCentersDto } from './dto/get-smile-centers.dto';
+import { SmileCenterRepository } from './smile-centers.repository';
+import { GetSmileCenterDto } from './dto/get-smile-centers.dto';
 
 @Injectable()
 export class SmileCenterService {
-  constructor(private readonly smileCentersRepository: SmileCentersRepository) {}
+  constructor(private readonly smileCentersRepository: SmileCenterRepository) {}
 
-  async getCenters(getCentersDto: GetSmileCentersDto): Promise<any> {
+  async getCenters(getCentersDto: GetSmileCenterDto): Promise<any> {
     const { centerType, zone, service } = getCentersDto;
     const filters: any = {};
     if (centerType) filters.Center_Type = centerType;
