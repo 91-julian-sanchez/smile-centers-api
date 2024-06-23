@@ -1,7 +1,6 @@
-// smile-centers/src/smile-center/smile-center.controller.ts
 import { Controller, Get, Query, UsePipes, ValidationPipe } from '@nestjs/common';
-import { SmileCenterService } from './smile-center.service';
-import { GetSmileCentersDto } from './dto/get-smile-centers.dto';
+import { SmileCenterService } from './smile-centers.service';
+import { GetSmileCenterDto } from './dto/get-smile-centers.dto';
 
 @Controller('smile-center')
 export class SmileCenterController {
@@ -9,7 +8,7 @@ export class SmileCenterController {
 
   @Get()
   @UsePipes(new ValidationPipe({ transform: true }))
-  async getCenters(@Query() getCentersDto: GetSmileCentersDto) {
+  async getCenters(@Query() getCentersDto: GetSmileCenterDto) {
     return this.smileCentersService.getCenters(getCentersDto);
   }
 }

@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class GetSmileCentersDto {
+export class GetSmileCenterDto {
   @IsOptional()
   @IsString()
   centerType?: string;

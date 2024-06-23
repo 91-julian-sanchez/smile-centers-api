@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SmileCenterModule } from './smile-center/smile-center.module';
+import { SmileCentersModule } from './smile-centers/smile-centers.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
@@ -15,7 +15,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       }),
       inject: [ConfigService],
     }),
-    SmileCenterModule,
+    SmileCentersModule,
   ],
   controllers: [],
   providers: [],

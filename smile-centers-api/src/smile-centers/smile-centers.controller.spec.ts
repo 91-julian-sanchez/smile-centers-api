@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SmileCenterController } from './smile-center.controller';
+import { SmileCenterController } from './smile-centers.controller';
 
 describe('SmileCenterController', () => {
   let controller: SmileCenterController;
