@@ -1,69 +1,128 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
-layout: Doc
-framework: v4
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, Inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Smile Centers API
 
-# Serverless Framework Node HTTP API on AWS
+Este proyecto es una API que permite obtener centros Smile Centers, filtrados por `Center_Type`, `Zone` y `Services`. Está implementado usando NestJS y el Serverless Framework, y se despliega en AWS Lambda.
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
+## Requisitos
 
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
+- Node.js 20.x
+- Serverless Framework v4
 
-## Usage
+## Configuración
 
-### Deployment
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/91-julian-sanchez/smile-centers-api.git
+   ```
 
-In order to deploy the example, you need to run the following command:
-
+2. Instala las dependencias:
+```bash
+npm install
 ```
+
+3. Configura las variables de entorno. Crea un archivo .env en el directorio raíz del proyecto y añade las siguientes variables:
+```
+MONGODB_URI=<tu-uri-de-mongodb>
+```
+
+4. Configura tu cuenta de AWS para el despliegue. Asegúrate de tener las credenciales de AWS configuradas en tu máquina.
+
+## Despliegue
+1. Compila el proyecto:
+
+```bash
+npm run build
+```
+2. Despliega el proyecto a AWS Lambda usando Serverless Framework:
+
+```bash
 serverless deploy
 ```
 
-After running deploy, you should see output similar to:
+## Ejecución Local
+1. Compila el proyecto:
 
-```
-Deploying "serverless-http-api" to stage "dev" (us-east-1)
-
-✔ Service deployed to stack serverless-http-api-dev (91s)
-
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: serverless-http-api-dev-hello (1.6 kB)
+```bash
+npm run build
 ```
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [HTTP API (API Gateway V2) event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api).
+2. Inicia el proyecto localmente:
 
-### Invocation
-
-After successful deployment, you can call the created application via HTTP:
-
-```
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
+```bash
+npm start
 ```
 
-Which should result in response similar to:
+3. La API estará disponible en http://localhost:3000.
 
-```json
-{ "message": "Go Serverless v4! Your function executed successfully!" }
+## Uso
+### Endpoints
+Obtener Smile Centers
+URL: /smile-center
+
+Método: GET
+
+Query Parameters:
+
+* Center_Type (opcional)
+* Zone (opcional)
+* Services (opcional)
+
+### Ejemplo de Uso
+
+* Filtrar por centerType:
+```bash
+curl --location 'http://localhost:3000/smile-center?centerType=Centro%20Aliado'
 ```
 
-### Local development
-
-The easiest way to develop and test your function is to use the `dev` command:
-
+Respuesta:
 ```
-serverless dev
+[
+    {
+        "name": "Citas Full Pereira",
+        "address": "Calle 14",
+        "calendarId": "7964022"
+    }
+]
 ```
 
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
+* Filtrar por zone:
+```bash
+curl --location 'http://localhost:3000/smile-center?zone=Pereira'
+```
 
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
+Respuesta:
+```
+[
+    {
+        "name": "Citas Full Pereira",
+        "address": "Calle 14",
+        "calendarId": "7964022"
+    }
+]
+```
 
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
+* Filtrar por services:
+```bash
+curl --location 'http://localhost:3000/smile-center?service=fullprimera'
+```
+Respuesta:
+```
+[
+    {
+        "name": "Citas Full Pereira",
+        "address": "Calle 14",
+        "calendarId": "7964022",
+        "appointmentTypeId": "53474599"
+    }
+]
+```
+
+## Scripts Disponibles
+* `npm run build`: Compila el proyecto.
+* `npm start`: Inicia la aplicación en modo producción.
+* `npm run start:dev`: Inicia la aplicación en modo desarrollo con recarga en caliente.
+* `npm run format`: Formatea el código usando Prettier.
+* `npm test`: Ejecuta las pruebas unitarias.
+* `npm run test:watch`: Ejecuta las pruebas unitarias en modo watch.
+* `npm run test:cov`: Ejecuta las pruebas unitarias y genera un informe de cobertura.
+* `npm run test:debug`: Inicia las pruebas en modo debug.
+* `npm run test:e2e`: Ejecuta las pruebas end-to-end.
