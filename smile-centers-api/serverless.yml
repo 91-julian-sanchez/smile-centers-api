@@ -1,7 +1,7 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: 91juliansanchez
 # "service" is the name of this project. This will also be added to your AWS resource names.
-service: smile-centers
+service: smile-centers-api
 
 provider:
   name: aws
