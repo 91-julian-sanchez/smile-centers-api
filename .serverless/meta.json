@@ -1,68 +1,678 @@
 {
-  "C:\\develop\\moons-technical-test\\smile-centers": {
+  "C:\\develop\\moons-technical-test": {
     "versionSfCore": null,
     "versionFramework": "4.1.5",
     "isWithinCompose": false,
     "isCompose": false,
     "composeOrgName": null,
-    "composeResolverProviders": {},
+    "composeResolverProviders": {
+      "env": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "91juliansanchez",
+            "app": "smile-centers-app",
+            "service": "smile-centers-api",
+            "provider": {
+              "name": "aws",
+              "runtime": "nodejs20.x",
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "ServerlessDeploymentBucket": {
+                    "Type": "AWS::S3::Bucket",
+                    "Properties": {
+                      "BucketEncryption": {
+                        "ServerSideEncryptionConfiguration": [
+                          {
+                            "ServerSideEncryptionByDefault": {
+                              "SSEAlgorithm": "AES256"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "ServerlessDeploymentBucketPolicy": {
+                    "Type": "AWS::S3::BucketPolicy",
+                    "Properties": {
+                      "Bucket": {
+                        "Ref": "ServerlessDeploymentBucket"
+                      },
+                      "PolicyDocument": {
+                        "Statement": [
+                          {
+                            "Action": "s3:*",
+                            "Effect": "Deny",
+                            "Principal": "*",
+                            "Resource": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":s3:::",
+                                    {
+                                      "Ref": "ServerlessDeploymentBucket"
+                                    },
+                                    "/*"
+                                  ]
+                                ]
+                              },
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":s3:::",
+                                    {
+                                      "Ref": "ServerlessDeploymentBucket"
+                                    }
+                                  ]
+                                ]
+                              }
+                            ],
+                            "Condition": {
+                              "Bool": {
+                                "aws:SecureTransport": false
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "ApiLogGroup": {
+                    "Type": "AWS::Logs::LogGroup",
+                    "Properties": {
+                      "LogGroupName": "/aws/lambda/smile-centers-api-dev-api"
+                    }
+                  },
+                  "IamRoleLambdaExecution": {
+                    "Type": "AWS::IAM::Role",
+                    "Properties": {
+                      "AssumeRolePolicyDocument": {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                          {
+                            "Effect": "Allow",
+                            "Principal": {
+                              "Service": [
+                                "lambda.amazonaws.com"
+                              ]
+                            },
+                            "Action": [
+                              "sts:AssumeRole"
+                            ]
+                          }
+                        ]
+                      },
+                      "Policies": [
+                        {
+                          "PolicyName": {
+                            "Fn::Join": [
+                              "-",
+                              [
+                                "smile-centers-api",
+                                "dev",
+                                "lambda"
+                              ]
+                            ]
+                          },
+                          "PolicyDocument": {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:CreateLogStream",
+                                  "logs:CreateLogGroup",
+                                  "logs:TagResource"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/smile-centers-api-dev*:*"
+                                  }
+                                ]
+                              },
+                              {
+                                "Effect": "Allow",
+                                "Action": [
+                                  "logs:PutLogEvents"
+                                ],
+                                "Resource": [
+                                  {
+                                    "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/smile-centers-api-dev*:*:*"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "Path": "/",
+                      "RoleName": {
+                        "Fn::Join": [
+                          "-",
+                          [
+                            "smile-centers-api",
+                            "dev",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            "lambdaRole"
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": {
+                      "Ref": "ServerlessDeploymentBucket"
+                    }
+                  }
+                }
+              },
+              "coreCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "ServerlessDeploymentBucket": {
+                    "Type": "AWS::S3::Bucket",
+                    "Properties": {
+                      "BucketEncryption": {
+                        "ServerSideEncryptionConfiguration": [
+                          {
+                            "ServerSideEncryptionByDefault": {
+                              "SSEAlgorithm": "AES256"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "ServerlessDeploymentBucketPolicy": {
+                    "Type": "AWS::S3::BucketPolicy",
+                    "Properties": {
+                      "Bucket": {
+                        "Ref": "ServerlessDeploymentBucket"
+                      },
+                      "PolicyDocument": {
+                        "Statement": [
+                          {
+                            "Action": "s3:*",
+                            "Effect": "Deny",
+                            "Principal": "*",
+                            "Resource": [
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":s3:::",
+                                    {
+                                      "Ref": "ServerlessDeploymentBucket"
+                                    },
+                                    "/*"
+                                  ]
+                                ]
+                              },
+                              {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":s3:::",
+                                    {
+                                      "Ref": "ServerlessDeploymentBucket"
+                                    }
+                                  ]
+                                ]
+                              }
+                            ],
+                            "Condition": {
+                              "Bool": {
+                                "aws:SecureTransport": false
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": {
+                      "Ref": "ServerlessDeploymentBucket"
+                    }
+                  }
+                }
+              }
+            },
+            "functions": {
+              "api": {
+                "handler": "dist/lambda.handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/",
+                      "method": "any"
+                    }
+                  },
+                  {
+                    "http": {
+                      "path": "/{proxy+}",
+                      "method": "any"
+                    }
+                  }
+                ],
+                "environment": {
+                  "MONGODB_URI": "mongodb://admin:ij5MmGS2jtVwdzSu1SUNt5hS@MongoS3601A.back4app.com:27017/b5fcb94191f1445182817dbc20743c19"
+                },
+                "name": "smile-centers-api-dev-api",
+                "package": {}
+              }
+            },
+            "plugins": [
+              "serverless-offline"
+            ],
+            "package": {
+              "individually": true,
+              "exclude": [
+                ".git/**",
+                ".serverless/**",
+                ".vscode/**",
+                "coverage/**",
+                "test/**",
+                "README.md",
+                "yarn.lock",
+                "package-lock.json",
+                "node_modules/aws-sdk/**",
+                "node_modules/.bin/**",
+                "node_modules/**/test/**",
+                "node_modules/**/docs/**"
+              ],
+              "include": [
+                "dist/**",
+                "src/**",
+                "node_modules/**",
+                "package.json",
+                "tsconfig.json"
+              ],
+              "artifactsS3KeyDirname": "serverless/smile-centers-api/dev/code-artifacts"
+            }
+          },
+          "configFileDirPath": "C:\\develop\\moons-technical-test",
+          "config": {
+            "type": "env"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null
+        },
+        "resolvers": {}
+      }
+    },
     "composeServiceName": null,
-    "servicePath": "C:\\develop\\moons-technical-test\\smile-centers",
+    "servicePath": "C:\\develop\\moons-technical-test",
     "serviceConfigFileName": "serverless.yml",
     "service": {
       "org": "91juliansanchez",
-      "service": "smile-centers",
+      "app": "smile-centers-app",
+      "service": "smile-centers-api",
       "provider": {
         "name": "aws",
         "runtime": "nodejs20.x",
         "stage": "dev",
         "region": "us-east-1",
         "versionFunctions": true,
-        "environment": {
-          "IS_LOCAL": "true"
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "ServerlessDeploymentBucket": {
+              "Type": "AWS::S3::Bucket",
+              "Properties": {
+                "BucketEncryption": {
+                  "ServerSideEncryptionConfiguration": [
+                    {
+                      "ServerSideEncryptionByDefault": {
+                        "SSEAlgorithm": "AES256"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "ServerlessDeploymentBucketPolicy": {
+              "Type": "AWS::S3::BucketPolicy",
+              "Properties": {
+                "Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "PolicyDocument": {
+                  "Statement": [
+                    {
+                      "Action": "s3:*",
+                      "Effect": "Deny",
+                      "Principal": "*",
+                      "Resource": [
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              },
+                              "/*"
+                            ]
+                          ]
+                        },
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              }
+                            ]
+                          ]
+                        }
+                      ],
+                      "Condition": {
+                        "Bool": {
+                          "aws:SecureTransport": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "ApiLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/smile-centers-api-dev-api"
+              }
+            },
+            "IamRoleLambdaExecution": {
+              "Type": "AWS::IAM::Role",
+              "Properties": {
+                "AssumeRolePolicyDocument": {
+                  "Version": "2012-10-17",
+                  "Statement": [
+                    {
+                      "Effect": "Allow",
+                      "Principal": {
+                        "Service": [
+                          "lambda.amazonaws.com"
+                        ]
+                      },
+                      "Action": [
+                        "sts:AssumeRole"
+                      ]
+                    }
+                  ]
+                },
+                "Policies": [
+                  {
+                    "PolicyName": {
+                      "Fn::Join": [
+                        "-",
+                        [
+                          "smile-centers-api",
+                          "dev",
+                          "lambda"
+                        ]
+                      ]
+                    },
+                    "PolicyDocument": {
+                      "Version": "2012-10-17",
+                      "Statement": [
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:CreateLogStream",
+                            "logs:CreateLogGroup",
+                            "logs:TagResource"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/smile-centers-api-dev*:*"
+                            }
+                          ]
+                        },
+                        {
+                          "Effect": "Allow",
+                          "Action": [
+                            "logs:PutLogEvents"
+                          ],
+                          "Resource": [
+                            {
+                              "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/smile-centers-api-dev*:*:*"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "Path": "/",
+                "RoleName": {
+                  "Fn::Join": [
+                    "-",
+                    [
+                      "smile-centers-api",
+                      "dev",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      "lambdaRole"
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": {
+                "Ref": "ServerlessDeploymentBucket"
+              }
+            }
+          }
+        },
+        "coreCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "ServerlessDeploymentBucket": {
+              "Type": "AWS::S3::Bucket",
+              "Properties": {
+                "BucketEncryption": {
+                  "ServerSideEncryptionConfiguration": [
+                    {
+                      "ServerSideEncryptionByDefault": {
+                        "SSEAlgorithm": "AES256"
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "ServerlessDeploymentBucketPolicy": {
+              "Type": "AWS::S3::BucketPolicy",
+              "Properties": {
+                "Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "PolicyDocument": {
+                  "Statement": [
+                    {
+                      "Action": "s3:*",
+                      "Effect": "Deny",
+                      "Principal": "*",
+                      "Resource": [
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              },
+                              "/*"
+                            ]
+                          ]
+                        },
+                        {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":s3:::",
+                              {
+                                "Ref": "ServerlessDeploymentBucket"
+                              }
+                            ]
+                          ]
+                        }
+                      ],
+                      "Condition": {
+                        "Bool": {
+                          "aws:SecureTransport": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": {
+                "Ref": "ServerlessDeploymentBucket"
+              }
+            }
+          }
         }
       },
       "functions": {
-        "hello": {
-          "handler": "handler.hello",
+        "api": {
+          "handler": "dist/lambda.handler",
           "events": [
             {
-              "httpApi": {
+              "http": {
                 "path": "/",
-                "method": "get"
+                "method": "any"
+              }
+            },
+            {
+              "http": {
+                "path": "/{proxy+}",
+                "method": "any"
               }
             }
           ],
-          "name": "smile-centers-dev-hello"
+          "environment": {
+            "MONGODB_URI": "mongodb://admin:ij5MmGS2jtVwdzSu1SUNt5hS@MongoS3601A.back4app.com:27017/b5fcb94191f1445182817dbc20743c19"
+          },
+          "name": "smile-centers-api-dev-api",
+          "package": {}
         }
+      },
+      "plugins": [
+        "serverless-offline"
+      ],
+      "package": {
+        "individually": true,
+        "exclude": [
+          ".git/**",
+          ".serverless/**",
+          ".vscode/**",
+          "coverage/**",
+          "test/**",
+          "README.md",
+          "yarn.lock",
+          "package-lock.json",
+          "node_modules/aws-sdk/**",
+          "node_modules/.bin/**",
+          "node_modules/**/test/**",
+          "node_modules/**/docs/**"
+        ],
+        "include": [
+          "dist/**",
+          "src/**",
+          "node_modules/**",
+          "package.json",
+          "tsconfig.json"
+        ],
+        "artifactsS3KeyDirname": "serverless/smile-centers-api/dev/code-artifacts"
       }
     },
-    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\norg: 91juliansanchez\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\nservice: smile-centers\n\nprovider:\n  name: aws\n  runtime: nodejs20.x\n\nfunctions:\n  hello:\n    handler: handler.hello\n    events:\n      - httpApi:\n          path: /\n          method: get\n",
+    "serviceRawFile": "# \"org\" ensures this Service is used with the correct Serverless Framework Access Key.\r\norg: 91juliansanchez\r\n# \"app\" enables Serverless Framework Dashboard features and sharing them with other Services.\r\napp: smile-centers-app\r\n# \"service\" is the name of this project. This will also be added to your AWS resource names.\r\nservice: smile-centers-api\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs20.x\r\n\r\nfunctions:\r\n  api:\r\n    handler: dist/lambda.handler\r\n    events:\r\n      - http:\r\n          path: /\r\n          method: any\r\n      - http:\r\n          path: /{proxy+}\r\n          method: any\r\n    environment:\r\n      MONGODB_URI: ${env:MONGODB_URI}\r\n\r\nplugins:\r\n  - serverless-offline\r\n\r\npackage:\r\n  individually: true\r\n  exclude:\r\n    - .git/**\r\n    - .serverless/**\r\n    - .vscode/**\r\n    - coverage/**\r\n    - test/**\r\n    - README.md\r\n    - yarn.lock\r\n    - package-lock.json\r\n    - node_modules/aws-sdk/**  # AWS SDK está disponible por defecto en Lambda\r\n    - node_modules/.bin/**  # Binarios innecesarios\r\n    - node_modules/**/test/**  # Archivos de prueba\r\n    - node_modules/**/docs/**  # Documentación\r\n  include:\r\n    - dist/**\r\n    - src/**\r\n    - node_modules/**\r\n    - package.json\r\n    - tsconfig.json\r\n",
     "command": [
-      "invoke",
-      "local"
+      "deploy"
     ],
-    "options": {
-      "function": "hello"
-    },
+    "options": {},
     "error": {
-      "message": "Exception encountered when loading C:\\develop\\moons-technical-test\\smile-centers\\handler",
-      "stack": "ServerlessError2: Exception encountered when loading C:\\develop\\moons-technical-test\\smile-centers\\handler\n    at AwsInvokeLocal.invokeLocalNodeJs (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1025:9347)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PluginManager.runHooks (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1028:9294)\n    at async PluginManager.invoke (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1028:10064)\n    at async PluginManager.run (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1028:10788)\n    at async Serverless.run (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1035:10442)\n    at async runFramework (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1079:2314)\n    at async route (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1088:14692)\n    at async Object.run2 [as run] (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1088:15090)\n    at async run3 (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:1088:16324)",
-      "code": "INVOKE_LOCAL_LAMBDA_INITIALIZATION_FAILED"
+      "message": "Cannot read file node_modules\\aws-sdk\\apis\\pinpoint-sms-voice-v2-2022-03-31.waiters2.json due to: EMFILE: too many open files, open 'C:\\develop\\moons-technical-test\\node_modules\\aws-sdk\\apis\\pinpoint-sms-voice-v2-2022-03-31.waiters2.json'",
+      "stack": "ServerlessError2: Cannot read file node_modules\\aws-sdk\\apis\\pinpoint-sms-voice-v2-2022-03-31.waiters2.json due to: EMFILE: too many open files, open 'C:\\develop\\moons-technical-test\\node_modules\\aws-sdk\\apis\\pinpoint-sms-voice-v2-2022-03-31.waiters2.json'\n    at file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:813:26739\n    at tryCatcher (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:394:82107)\n    at Promise2._settlePromiseFromHandler (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:572:10147)\n    at Promise2._settlePromise (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:572:11471)\n    at Promise2._settlePromise0 (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:572:12528)\n    at Promise2._settlePromises (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:572:14124)\n    at _drainQueueStep (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:401:583)\n    at _drainQueue (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:401:479)\n    at Async._drainQueues (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:401:716)\n    at Async.drainQueues [as _onImmediate] (file:///C:/Users/THINKPAD/.serverless/releases/4.1.5/package/dist/sf-core.js:397:3295)\n    at process.processImmediate (node:internal/timers:478:21)",
+      "code": "CANNOT_READ_FILE"
     },
     "params": {},
-    "machineId": "cfe80ee6b23fb2b65e6fd229e0ab4431",
+    "machineId": "07d500585fe358cb4c7d5f86689274f6",
     "accessKeyV2": "<REDACTED>",
     "accessKeyV1": "<REDACTED>",
     "orgId": "b6092b5e-c8f5-4b0a-ac77-2562ea992c84",
     "orgName": "91juliansanchez",
     "userId": "5klwptnbP2DV8jGGK7",
     "dashboard": {
-      "isEnabledForService": false,
+      "isEnabledForService": true,
       "requiredAuthentication": false,
-      "orgFeaturesInUse": null,
+      "orgFeaturesInUse": {
+        "providers": false,
+        "monitoring": false
+      },
       "orgObservabilityIntegrations": null,
-      "serviceAppId": null,
+      "serviceAppId": "hZ7rsWDfzJBZrnhRBH",
       "serviceProvider": null,
       "instanceParameters": null
     },
@@ -70,13 +680,31 @@
     "subscription": null,
     "userEmail": "91.julian.sanchez@gmail.com",
     "serviceProviderAwsCredentials": "<REDACTED>",
-    "serviceProviderAwsAccountId": "921054675584",
+    "serviceProviderAwsAccountId": "162829784712",
     "versionSf": "4.1.5",
-    "serviceProviderAwsCfStackName": "smile-centers-dev",
-    "serviceProviderAwsCfStackId": null,
-    "serviceProviderAwsCfStackCreated": null,
-    "serviceProviderAwsCfStackUpdated": null,
-    "serviceProviderAwsCfStackStatus": null,
-    "serviceProviderAwsCfStackOutputs": null
+    "serviceProviderAwsCfStackName": "smile-centers-api-dev",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:162829784712:stack/smile-centers-api-dev/2c1b1900-319b-11ef-b00f-0affde96e0ab",
+    "serviceProviderAwsCfStackCreated": "2024-06-23T20:00:00.222Z",
+    "serviceProviderAwsCfStackUpdated": "2024-06-23T20:06:31.251Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "ApiLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:162829784712:function:smile-centers-api-dev-api:3",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-smile-centers-api-dev-ApiLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ServiceEndpoint",
+        "OutputValue": "https://88lnqztlr0.execute-api.us-east-1.amazonaws.com/dev",
+        "Description": "URL of the service endpoint",
+        "ExportName": "sls-smile-centers-api-dev-ServiceEndpoint"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "smile-centers-api-dev-serverlessdeploymentbucket-3hrkqb9xyz1k",
+        "ExportName": "sls-smile-centers-api-dev-ServerlessDeploymentBucketName"
+      }
+    ]
   }
 }
