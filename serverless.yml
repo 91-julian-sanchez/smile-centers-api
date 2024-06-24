@@ -1,5 +1,7 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: 91juliansanchez
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: smile-centers-app
 # "service" is the name of this project. This will also be added to your AWS resource names.
 service: smile-centers-api
 
@@ -17,17 +19,21 @@ functions:
       - http:
           path: /{proxy+}
           method: any
+    environment:
+      MONGODB_URI: ${env:MONGODB_URI}
 
 plugins:
   - serverless-offline
 
 package:
   exclude:
-    - node_modules/**
-    - .serverless/**
-    - .vscode/**
-    - coverage/**
-    - dist/**
+    - .git/**
+    - src/**
     - test/**
+    - e2e/**
+    - nodemon.json
     - README.md
-    - yarn.lock
+    - "node_modules/aws-sdk/**" # AWS SDK ya está incluido en el entorno Lambda
+    - "node_modules/nest-cli/**" # Si usas @nestjs/cli
+    - "node_modules/@nestjs/cli/**" # Si usas @nestjs/cli
+    - "node_modules/typescript/**" # TypeScript no es necesario en tiempo de ejecución

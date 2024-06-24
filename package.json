@@ -1,7 +1,8 @@
 {
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "serverless-offline": "^13.6.0"
+    "serverless-offline": "^13.6.0",
+    "typescript": "^5.5.2"
   },
   "scripts": {
     "build": "tsc",
