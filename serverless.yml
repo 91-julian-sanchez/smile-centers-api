@@ -16,9 +16,11 @@ functions:
       - http:
           path: /
           method: any
+          cors:  true
       - http:
           path: /{proxy+}
           method: any
+          cors:  true
     environment:
       MONGODB_URI: ${env:MONGODB_URI}
 
@@ -33,7 +35,7 @@ package:
     - e2e/**
     - nodemon.json
     - README.md
-    - "node_modules/aws-sdk/**" # AWS SDK ya está incluido en el entorno Lambda
-    - "node_modules/nest-cli/**" # Si usas @nestjs/cli
-    - "node_modules/@nestjs/cli/**" # Si usas @nestjs/cli
-    - "node_modules/typescript/**" # TypeScript no es necesario en tiempo de ejecución
+    - "node_modules/aws-sdk/**"
+    - "node_modules/nest-cli/**"
+    - "node_modules/@nestjs/cli/**"
+    - "node_modules/typescript/**"
