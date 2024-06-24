@@ -14,10 +14,19 @@ export class SmileCenterService {
     if (service) filters[`Services.${service}`] = { $exists: true };
     const centers = await this.smileCentersRepository.findByFilters(filters)
     return centers.map(center => ({
+      id: center.objectId,
       name: center.Center_Name,
-      address: center.Street,
+      address: `${center.Street} ${center.Number}`,
+      neighborhood: center.Neighborhood,
       calendarId: center.Calendar_Id,
       appointmentTypeId: service ? center.Services[service]?.AppointmentTypeId : center.Appointment_Type_Id,
+      zone: center.Zone,
+      timetable: center.Timetable,
+      services: center.Services,
+      centerType: center.Center_Type,
+      promo: center.promo,
+      country: center.Country,
+      city: center.City,
     }));
   }
 }

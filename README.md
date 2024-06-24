@@ -17,6 +17,8 @@ Este proyecto es una API que permite obtener centros Smile Centers, filtrados po
 
 2. Instala las dependencias:
 ```bash
+npm i serverless -g
+npm install -g @nestjs/cli
 npm install
 ```
 
